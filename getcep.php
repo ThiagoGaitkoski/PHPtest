@@ -39,8 +39,10 @@
                 $xml = file_get_contents($url);
                 $return_api = json_decode(json_encode(simplexml_load_string($xml)));
                 
-                if(isset($return_api->error)){
+                if(isset($return_api->erro)){
                     $error = true;
+                    $address->cep = "CEP Inválido";
+                    $res = false;
                 }else{
                     //Sem pegar complemento, pois alguns CEPS não tinha e dava erro
                     $return_api->cep = str_replace('-','',$return_api->cep);
@@ -64,7 +66,11 @@
                 }
             }
         }else{
+            $address->cep = "CEP Inválido";
             $error = true;
         }
+    }else{
+        $address->cep = "CEP Inválido";
+        $error = true;
     }
 ?>
