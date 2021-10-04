@@ -5,17 +5,16 @@
     $address = (object)[
         'cep' => '',
         'logradouro' => '',
-        'complemento' => '',
         'bairro' => '',
         'localidade' => '',
         'uf' => ''
     ];
     //Sem erro e sem resposta, pois ainda nao foi pesquisado
     $res = false;
-    $erro = false;
+    $error = false;
 
     if(isset($_POST['cep'])){
-        $cep = $_POST['cep'];
+        $cep = (string)$_POST['cep'];
         //Tirando tudo o que nao for numero pesquisado do cep
         $cep = preg_replace('/[^0-9]/', '', $cep);
 
@@ -29,10 +28,9 @@
             if(isset($return_db[0])){
                 $address->cep = $return_db[0][0];
                 $address->logradouro = $return_db[0][1];
-                $address->complemento = $return_db[0][2];
-                $address->bairro = $return_db[0][3];
-                $address->localidade = $return_db[0][4];
-                $address->uf = $return_db[0][5];
+                $address->bairro = $return_db[0][2];
+                $address->localidade = $return_db[0][3];
+                $address->uf = $return_db[0][4];
                 
                 //Dizendo que há uma resposta do banco
                 $res = true;
@@ -41,15 +39,15 @@
                 $xml = file_get_contents($url);
                 $return_api = json_decode(json_encode(simplexml_load_string($xml)));
                 
-                if(isset($return_api->erro)){
-                    $erro = true;
+                if(isset($return_api->error)){
+                    $error = true;
                 }else{
+                    //Sem pegar complemento, pois alguns CEPS não tinha e dava erro
                     $return_api->cep = str_replace('-','',$return_api->cep);
-                    $sql = $pdo->prepare("INSERT INTO enderecos VALUES (?,?,?,?,?,?)");
+                    $sql = $pdo->prepare("INSERT INTO enderecos VALUES (?,?,?,?,?)");
                     $sql->execute(array(
                         $return_api->cep,
                         $return_api->logradouro,
-                        $return_api->complemento,
                         $return_api->bairro,
                         $return_api->localidade,
                         $return_api->uf)
@@ -57,7 +55,6 @@
                     //Botando na tela
                     $address->cep = $return_api->cep;
                     $address->logradouro = $return_api->logradouro;
-                    $address->complemento = $return_api->complemento;
                     $address->bairro = $return_api->bairro;
                     $address->localidade = $return_api->localidade;
                     $address->uf = $return_api->uf;
@@ -67,7 +64,7 @@
                 }
             }
         }else{
-            $erro = true;
+            $error = true;
         }
     }
 ?>

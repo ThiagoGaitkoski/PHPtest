@@ -23,25 +23,21 @@
             </div>
             
             <div class="col-md-6">
-                <label for="Rua" class="form-label">Rua</label>
-                <input type="text" class="form-control" id="Rua" value="<?php echo $address->logradouro ?>" disabled>
+                <label for="rua" class="form-label">Rua</label>
+                <input type="text" class="form-control" id="rua" name="rua" value="<?php echo $address->logradouro ?>" disabled>
             </div>
-            <div class="col-md-8">
-                <label for="Complemento" class="form-label">Complemento</label>
-                <input type="texte" class="form-control" id="Complemento" name="complemento" value="<?php echo $address->complemento ?>" disabled>
-            </div>
-            <div class="col-md-4">
-                <label for="Bairro" class="form-label">Bairro</label>
-                <input type="text" class="form-control" id="Bairro" value="<?php echo $address->bairro ?>" disabled>
+            <div class="col-md-6">
+                <label for="bairro" class="form-label">Bairro</label>
+                <input type="text" class="form-control" id="bairro" name="bairro" value="<?php echo $address->bairro ?>" disabled>
             </div>
 
-            <div class="col-md-10">
-                <label for="Cidade" class="form-label">Cidade</label>
-                <input type="texte" class="form-control" id="Cidade" name="cidade" value="<?php echo $address->localidade ?>" disabled>
+            <div class="col-md-6">
+                <label for="cidade" class="form-label">Cidade</label>
+                <input type="texte" class="form-control" id="cidade" name="cidade" value="<?php echo $address->localidade ?>" disabled>
             </div>
-            <div class="col-md-2">
-                <label for="Estado" class="form-label">Estado</label>
-                <input type="text" class="form-control" id="Estado" name="estado" value="<?php echo $address->uf ?>" disabled>
+            <div class="col-md-6">
+                <label for="estado" class="form-label">Estado</label>
+                <input type="text" class="form-control" id="estado" name="estado" value="<?php echo $address->uf ?>" disabled>
             </div>
         </form>
     </div>
