@@ -21,7 +21,7 @@
 
         //Se tiver 8 numeros, faça a consulta
         if(strlen($cep) == 8){
-            $sql = $pdo->prepare("Select * FROM enderecos where cep=?");
+            $sql = $pdo->prepare("SELECT * FROM enderecos where cep=?");
             $sql->execute(array($cep));
             $return_db = $sql->fetchAll();
 
